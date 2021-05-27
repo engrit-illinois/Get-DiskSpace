@@ -4,9 +4,8 @@ It calculates percent free space, and outputs the data in a convenient table to 
 Intended just for a fast glance at disk space health of multiple machines. It's very fast, except when it tries to contact machines which don't respond.
 
 # Usage
-- Download `Get-DiskSpace.psm1`
-- Import it as a module: `Import-Module "c:\path\to\script\Get-DiskSpace.psm1"`
-- Run it using the examples and parameter documentation below.
+1. Download `Get-DiskSpace.psm1` to `$HOME\Documents\WindowsPowerShell\Modules\Get-DiskSpace\Get-DiskSpace.psm1`.
+2. Run it using the examples and parameter documentation below.
 
 # Examples
 - `Get-DiskSpace "espl-114-01"`
