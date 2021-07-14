@@ -88,4 +88,5 @@ Default is `10`.
 # Notes
 - Data that could not be collected (i.e. for machines that couldn't be contacted, or for which you don't have admin) will show as `unknown`.
 - If run in a host that supports color coding (i.e. the default Powershell console), the values in the `Free space (%)` column will be colored according to the "Percent" parameters above. This is useful for quick scanning of results from many computers.
+- Only tested on Powershell v5.1. Known issues on Powershell v7.
 - By mseng3. See my other projects here: https://github.com/mmseng/code-compendium.
