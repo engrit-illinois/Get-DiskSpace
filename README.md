@@ -3,6 +3,9 @@ This script reports the disk size and free space from a list of remote computers
 It calculates percent free space, and outputs the data in a convenient table to the screen, highlighting entries with low disk space. It also optionally outputs a log and a CSV file of the data.  
 Intended just for a fast glance at disk space health of multiple machines. It's very fast, except when it tries to contact machines which don't respond.
 
+# Requirements
+Currently this is only tested on Windows PowerShell 5.1. It has known, as of yet undiagnosed issues on PowerShell 7.
+
 # Usage
 1. Download `Get-DiskSpace.psm1` to `$HOME\Documents\WindowsPowerShell\Modules\Get-DiskSpace\Get-DiskSpace.psm1`.
 2. Run it using the examples and parameter documentation below.
