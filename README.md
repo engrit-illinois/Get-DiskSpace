@@ -4,7 +4,7 @@ It calculates percent free space, and outputs the data in a convenient table to 
 Intended just for a fast glance at disk space health of multiple machines. It's very fast, except when it tries to contact machines which don't respond.
 
 # Requirements
-Currently this is only tested on Windows PowerShell 5.1. It has known, as of yet undiagnosed issues on PowerShell 7.
+Currently this is only tested on Windows PowerShell 5.1. It has known, as of yet undiagnosed issues on PowerShell 7. Probably related to the deprecation of `Get-WmiObject`.
 
 # Usage
 1. Download `Get-DiskSpace.psm1` to `$HOME\Documents\WindowsPowerShell\Modules\Get-DiskSpace\Get-DiskSpace.psm1`.
