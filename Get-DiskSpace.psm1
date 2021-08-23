@@ -70,7 +70,7 @@ function Get-DiskSpace {
 			$perc = "unknown"
 			$this = $null
 			try {
-				$this = Get-WmiObject Win32_LogicalDisk -ComputerName $comp -Filter "DeviceID='$Disk'" -ErrorAction SilentlyContinue | Select-Object Size,FreeSpace
+				$this = Get-CimInstance -ClassName "Win32_LogicalDisk" -ComputerName $comp -Filter "DeviceID='$Disk'" -ErrorAction SilentlyContinue | Select-Object Size,FreeSpace
 			}
 			catch {
 			}
