@@ -17,8 +17,8 @@ Intended just for a fast glance at disk space health of multiple machines. It's 
 ```powershell
 C:\>Get-DiskSpace "espl-114-*"
 
-Name        Disk size (GB) Free space (GB) Free space (%)
-----        -------------- --------------- --------------
+Name        Disk size (GB) Free space (GB) Free space (%) Error
+----        -------------- --------------- -------------- -----
 ESPL-114-01            931            27.1              3
 ESPL-114-02            931          480.07             52
 ESPL-114-03            931          574.95             62
@@ -26,8 +26,8 @@ ESPL-114-04         931.51          430.59             46
 ESPL-114-05            931          603.33             65
 ESPL-114-06            931          408.35             44
 ESPL-114-07            931          535.12             57
-ESPL-114-08            931          455.22             49
-ESPL-114-09        unknown         unknown        unknown
+ESPL-114-08                                                WinRM cannot complete the operation. Verify that the specified computer name is valid, that the computer is accessible over the network...
+ESPL-114-09            931          455.22             49
 
 C:\>
 ```
@@ -42,15 +42,47 @@ The list of computer names and/or computer name query strings to poll for disk s
 Use an asterisk (`*`) as a wildcard.  
 The parameter name may be omitted if the value is given as the first or only parameter.  
 
+### -OUDN [string]
+Optional string.  
+The OU distinguished name of the OU to limit the computername search to.  
+Default is `"OU=Desktops,OU=Engineering,OU=Urbana,DC=ad,DC=uillinois,DC=edu"`.  
+
 ### -Disk [string]
 Optional string.  
 The local disk abotu which to gather data.  
 Default is `"C:"`.  
 
-### -OUDN [string]
-Optional string.  
-The OU distinguished name of the OU to limit the computername search to.  
-Default is `"OU=Desktops,OU=Engineering,OU=Urbana,DC=ad,DC=uillinois,DC=edu"`.  
+### -Parallel
+Optional switch.  
+If specified, gathers data from computers in parallel instead of sequentially.  
+Can significantly speed up the results when polling large numbers of computers when some computers do not respond.  
+Only supported in PowerShell 7+.  
+
+### -ThrottleLimit [int]
+Optional integer.  
+The maximum number of computers poll in parallel simultaneously.  
+Default is `50`.  
+
+### -PercentGood [int]
+Optional integer.  
+The `Free space (%)` value printed in the console output for computers with a value > `-PercentGood` will be uncolored.  
+Default is `50`.  
+
+### -PercentLow [int]
+Optional integer.  
+The `Free space (%)` value printed in the console output for computers with a value <= `-PercentGood` and > `-PercentLow` will be colored with a yellow foreground.  
+Default is `25`.  
+
+### -PercentCritical [int]
+Optional integer.  
+The `Free space (%)` value printed in the console output for computers with a value <= `-PercentLow` and > `-PercentCritical` will be colored with a red foreground.  
+The `Free space (%)` value printed in the console output for computers with a value <= `-PercentCritical` will be colored with a red background.  
+Default is `10`.  
+
+### -Loud
+Optional switch.  
+When specified, logging is output to the console.  
+Otherwise the module is silent until the results are returned.  
 
 ### -MakeLog
 Optional switch.  
@@ -69,21 +101,10 @@ Optional string.
 The directory in which to create log and/or CSV files, if any are created.  
 Default is `"c:\engrit\logs"`.  
 
-### -PercentGood [int]
-Optional integer.  
-The `Free space (%)` value printed in the console output for computers with a value > `-PercentGood` will be uncolored.  
-Default is `50`.
-
-### -PercentLow [int]
-Optional integer.  
-The `Free space (%)` value printed in the console output for computers with a value <= `-PercentGood` and > `-PercentLow` will be colored with a yellow foreground.  
-Default is `25`.  
-
-### -PercentCritical [int]
-Optional integer.  
-The `Free space (%)` value printed in the console output for computers with a value <= `-PercentLow` and > `-PercentCritical` will be colored with a red foreground.  
-The `Free space (%)` value printed in the console output for computers with a value <= `-PercentCritical` will be colored with a red background.  
-Default is `10`.    
+### -PassThru
+Optional switch.  
+If specified, the results are returned as an unformatted PowerShell object.  
+When not specified, the results are returned as a formatted table, with colorized values (see example screenshot above).  
 
 # Notes
 - Data that could not be collected (i.e. for machines that couldn't be contacted, or for which you don't have admin) will show as `unknown`.
