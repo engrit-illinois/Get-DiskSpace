@@ -6,7 +6,7 @@ function Get-DiskSpace {
 		[Parameter(Mandatory=$true,Position=0)]
 		[string[]]$ComputerName,
 		
-		[string]$OUDN = "OU=Desktops,OU=Engineering,OU=Urbana,DC=ad,DC=uillinois,DC=edu",
+		[string]$SearchBase,
 		
 		[string]$Disk = "C:",
 		
@@ -61,8 +61,11 @@ function Get-DiskSpace {
 
 	function Get-Comps {
 		$comps = @()
+		$params = @{}
+		if($SearchBase) { $params.SearchBase = $SearchBase }
 		foreach($query in @($ComputerName)) {
-			$thisQueryComps = (Get-ADComputer -Filter "name -like '$query'" -SearchBase $OUDN | Select Name).Name
+			$params.Filter = "name -like '$query'"
+			$thisQueryComps = (Get-ADComputer @params | Select Name).Name
 			$comps += @($thisQueryComps)
 		}
 		$comps
